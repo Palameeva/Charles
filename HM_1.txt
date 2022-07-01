@@ -23,6 +23,7 @@ Task:
 Сделать и в Rewrite, и в BreakPoint (можно отключить чтобы не стопило на каждом запросе)
  ⁃ Подменить url в Charles чтобы в запросе ушло имя которые вы вписали в Postman, а вернулось то, которое вы подставили в Charles.
 
+Charles:
 Edit Breakpoint
 Protocol: http
 IP: 162.55.220.72
@@ -31,11 +32,32 @@ Path: /get_method
 Query: name=str&age=int
 Response 
 
-Edit Response -> JSON Text  [
+Edit Response -> JSON Text  
+[
        "Kirill",
 	"int"]
 
 Execute
+
+200 OK
+
+Rewrite
+Location 
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /get_method
+Query: name=str&age=int
+
+Rewrite Rule
+Type: Modify Query Param
+Match :
+Name : name 
+Value: str
+Replace:
+Name: name 
+Value: Nastya
+Replace all
 
 200 OK
 
