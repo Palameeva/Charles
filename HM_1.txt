@@ -51,10 +51,10 @@ Query: name=str&age=int
 
 Rewrite Rule
 Type: Modify Query Param
-Match :
+Match 
 Name : name 
 Value: str
-Replace:
+Replace
 Name: name 
 Value: Nastya
 Replace all
