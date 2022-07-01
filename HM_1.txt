@@ -1,0 +1,41 @@
+Charles HW Traffic capture
+
+Ex_0: Сфокусироваться на ниже перечисленных запросах
+
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+
+Ex_1: 
+Method: GET
+EndPoint: /get_method
+request url params: 
+ name: str
+ age: int
+
+response: 
+[
+    “Str”,
+    “Int”
+]
+
+Task:
+Сделать и в Rewrite, и в BreakPoint (можно отключить чтобы не стопило на каждом запросе)
+ ⁃ Подменить url в Charles чтобы в запросе ушло имя которые вы вписали в Postman, а вернулось то, которое вы подставили в Charles.
+
+Edit Breakpoint
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /get_method
+Query: name=str&age=int
+Response 
+
+Edit Response -> JSON Text  [
+       "Kirill",
+	"int"]
+
+Execute
+
+200 OK
+
