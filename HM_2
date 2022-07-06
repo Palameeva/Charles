@@ -1,0 +1,68 @@
+
+Ex_2:
+Method: POST
+EndPoint: /user_info_3
+request form data: 
+ name: str
+ age: 25
+ salary: 1000
+
+response: 
+{
+    "age": "25",
+    "family": {
+        "children": [
+            [
+                "Alex",
+                24
+            ],
+            [
+                "Kate",
+                12
+            ]
+        ],
+        "u_salary_1_5_year": 4000
+    },
+    "name": "str",
+    "salary": 1000
+}
+
+Task:
+Сделать и в Rewrite, и в BreakPoint (можно отключить чтобы не стопило на каждом запросе)
+ ⁃ Подменить body в Charles так чтобы в запросе ушла salary которую вы вписали в Postman, а в u_salary_1_5_year цифра вернулась меньше оригинальной из запроса.
+
+
+Edit Breakpoint
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /user_info_3
+Response 
+
+Edit Response -> JSON Text 
+	…
+		],
+		"u_salary_1_5_year": 2
+	} …
+Execute
+
+200OK
+
+
+Rewrite
+Location 
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /user_info_3
+
+
+Rewrite Rule
+Type: Body
+Response  Match :
+Value: 4000
+Replace:
+Value: Nastya
+Replace all
+
+200 OK
