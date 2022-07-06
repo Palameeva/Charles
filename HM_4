@@ -1,0 +1,75 @@
+Ex_4:
+Method: GET
+EndPoint: /object_info_3
+request url params: 
+ name: str
+ age: int
+ salary: int
+
+Task:
+Сделать и в Rewrite, и в BreakPoint (можно отключить чтобы не стопило на каждом запросе)
+- Сделать через Charles так, чтобы сервер вернул 500 код.
+- Сделать через Charles так, чтобы сервер вернул 405 код.
+
+Edit Breakpoint
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /user_info_2
+Query: name=str&age=25&salary=1000
+Response 
+
+Edit Response -> Headers
+HTTP/1.0 500 
+Execute
+500Internal Server Error
+
+Edit Breakpoint
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /user_info_2
+Query: name=str&age=25&salary=1000
+Response 
+
+Edit Response -> Headers
+HTTP/1.0 405
+Execute
+405Method Not Allowed
+
+Rewrite
+Location 
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /user_info_2
+Query: name=str&age=25&salary=1000
+
+Rewrite Rule
+Type: Response Status 
+Response  Match :
+Value: 200 OK
+Replace:
+Value: 500 Error
+Replace all
+
+ 500 Error
+
+
+Rewrite
+Location 
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /user_info_2
+Query: name=str&age=25&salary=1000
+
+Rewrite Rule
+Type: Response Status 
+Response  Match :
+Value: 200 OK
+Replace:
+Value: 405 Method Not Allowed
+Replace all
+
+405 Method Not Allowed
