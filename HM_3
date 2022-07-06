@@ -1,4 +1,4 @@
-==================
+
 
 Ex_3:
 Method: GET
@@ -53,25 +53,27 @@ Query: name=str&age=23&weight=61
 
 Rewrite Rule
 Type: Body
-Response  Match :
+Response 
+Match :
 Value: str
 Replace:
 Value: Alex
 Replace all
 
 Type: Body
-Response  Match :
+Response 
+Match :
 Value: 0.732
 Replace:
 Value: 62
 Replace all
 
 Type: Body
-Response  Match :
+Response 
+Match :
 Value: 152.5
 Replace:
 Value: 60
 Replace all
 200 Ok
 
-==================
