@@ -1,0 +1,77 @@
+==================
+
+Ex_3:
+Method: GET
+EndPoint: /object_info_1
+request url params: 
+ name: str
+ age: 25
+ weight: 61
+
+response: 
+{'name': name,
+          'age': age,
+          'daily_food': weight * 0.012,
+          'daily_sleep': weight * 2.5}
+
+{
+    "age": 25,
+    "daily_food": 0.732,
+    "daily_sleep": 152.5,
+    "name": "str"
+}
+
+Task:
+Сделать и в Rewrite, и в BreakPoint (можно отключить чтобы не стопило на каждом запросе)
+ ⁃ Подменить параметры запроса в Charles так, чтобы в Postman пришел ответ где другое name, daily_food > weight из запроса, а daily_sleep < weight из запроса.
+
+Edit Breakpoint
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /user_info_1
+Query: name=str&age=23&weight=61
+Response 
+
+Edit Response -> JSON Text 
+{
+    "age": 25,
+    "daily_food": 62,
+    "daily_sleep": 60,
+    "name": "Privet!@5$888"
+}
+
+200 OK 
+
+Rewrite
+Location 
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /user_info_1
+Query: name=str&age=23&weight=61
+
+Rewrite Rule
+Type: Body
+Response  Match :
+Value: str
+Replace:
+Value: Alex
+Replace all
+
+Type: Body
+Response  Match :
+Value: 0.732
+Replace:
+Value: 62
+Replace all
+
+Type: Body
+Response  Match :
+Value: 152.5
+Replace:
+Value: 60
+Replace all
+200 Ok
+
+==================
