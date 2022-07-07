@@ -1,0 +1,95 @@
+Ex_5:
+Method: GET
+EndPoint: /object_info_4
+request url params: 
+ name: str
+ age: 25
+ salary: 1000
+
+response: 
+{'name': name,
+          'age': int(age),
+          'salary': [salary, str(salary * 2), str(salary * 3)]}
+
+
+Task:
+Сделать и в Rewrite, и в BreakPoint (можно отключить чтобы не стопило на каждом запросе)
+ ⁃ Сделать через Charles так, чтобы сервер вернул 405 ошибку.
+ ⁃ Подменить salary в request
+ ⁃ Подменить (salary * 2) в response
+
+Edit Breakpoint
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /object_info_4
+Query: name=str&age=25&salary=1000
+Request
+
+Edit Response -> Headers
+HTTP/1.0 405
+Execute
+405Method Not Allowed
+
+Edit Breakpoint
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /object_info_4
+Query: name=str&age=25&salary=1000
+Request
+
+Edit Request -> URL
+salary 0
+
+Edit Breakpoint
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /object_info_4
+Query: name=str&age=25&salary=1000
+Response
+
+Edit Response -> JSON Text 
+"salary": [
+        1000,
+        "0",
+        "3000"
+    ]
+Execute
+200 OK
+
+Rewrite
+Location 
+Protocol: http
+IP: 162.55.220.72
+Port: 5005
+Path: /object_info_4
+Query: name=str&age=25&salary=1000
+
+Rewrite Rule
+Type: Response Status 
+Response  Match :
+Value: 200 OK
+Replace:
+Value: 405 Method Not Allowed
+Replace all
+405 Method Not Allowed
+
+Type: Modify Query Param
+Request
+Match :
+Name : salary
+Value: 1000
+Replace:
+Name: salary
+Value: 30
+Replace all
+
+Type: Body
+Response  Match :
+Value: 60
+Replace:
+Value: 12
+Replace all
+
