@@ -69,7 +69,8 @@ Query: name=str&age=25&salary=1000
 
 Rewrite Rule
 Type: Response Status 
-Response  Match :
+Response 
+Match :
 Value: 200 OK
 Replace:
 Value: 405 Method Not Allowed
@@ -87,7 +88,8 @@ Value: 30
 Replace all
 
 Type: Body
-Response  Match :
+Response 
+Match :
 Value: 60
 Replace:
 Value: 12
